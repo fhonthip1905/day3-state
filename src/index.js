@@ -8,16 +8,52 @@ import React from "react";
 // }
 
 //## Lab-2
+// function App() {
+//   const handleSelect = (event) => console.log(event.target.value);
+//   return (
+//     <select onClick={handleSelect}>
+//       <option>Thailand</option>
+//       <option>England</option>
+//       <option>Argentina</option>
+//       <option>Portugal</option>
+//       <option>Spain</option>
+//     </select>
+//   );
+// }
+
+//## Lab-3
 function App() {
-  const handleSelect = (event) => console.log(event.target.value);
+  const handleCheckbox = (event) =>
+    event.target.checked === true
+      ? console.log('name:'+(event.target.name),'value:'+(event.target.value),'Status:'+(event.target = "Tick"))
+      : console.log('name:'+(event.target.name),'value:'+(event.target.value),'Status:'+(event.target = "Untick"));
   return (
-    <select onClick={handleSelect}>
-      <option>Thailand</option>
-      <option>England</option>
-      <option>Argentina</option>
-      <option>Portugal</option>
-      <option>Spain</option>
-    </select>
+    <form>
+      <input
+        type="checkbox"
+        name="bike"
+        value="bike"
+        onChange={handleCheckbox}
+      />
+      <label> Bike</label>
+      <br />
+      <input
+        type="checkbox"
+        name="car"
+        value="car"
+        onClick={handleCheckbox}
+      />
+      <label> Car</label>
+      <br />
+      <input
+        type="checkbox"
+        name="boat"
+        value="boat"
+        onClick={handleCheckbox}
+      />
+      <label> Boat</label>
+      <br />
+    </form>
   );
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));

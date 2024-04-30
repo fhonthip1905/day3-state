@@ -2,19 +2,19 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 
 function App() {
-  const [isShow,setIsshow] = React.useState(true);
+  const [isShowbtn,setIsshowbtn] = React.useState(true);
 
   const handleClick =(event) =>{
-    setIsshow(!isShow)
+    setIsshowbtn(false);
   };
 
  
-  return (
-    <>
-        <button onClick={handleClick}> Click to hide me </button>
-    </>
+  return 
   
-  )
+        {isShow ? <button onClick={handleClick}>Click to hide me</button> : null}
+    
+  
+  
 
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));

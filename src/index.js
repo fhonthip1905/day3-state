@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 
 function App() {
-  const [isShow,setIsshow] = React.useState(false);
+  const [isShow,setIsshow] = React.useState(true);
 
   const handleClick =(event) =>{
     setIsshow(!isShow)
@@ -11,8 +11,7 @@ function App() {
  
   return (
     <>
-        <button onClick={handleClick}> {isShow ? 'Hide' : 'Show'} </button>
-        {isShow && <h2>Hello</h2> } 
+        <button onClick={handleClick}> Click to hide me </button>
     </>
   
   )

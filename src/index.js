@@ -3,14 +3,18 @@ import React from "react";
 
 //## Lab : 1
 function App() {
-  const [isShow,setIsShow] = React.useState(true);
+  const [isShow, setIsShow] = React.useState(true);
 
-  const handleClick =(event) =>{
+  const handleClick = (event) => {
     setIsShow(false);
   };
-  
-  return <>{isShow ? <button onClick={handleClick}>Click to hide me</button> : null}</>;
 
+  return (
+    <>
+      <button onClick={handleClick}>Click to hide me</button>
+      {isShow ? <h2>Text</h2> : null}
+    </>
+  );
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);

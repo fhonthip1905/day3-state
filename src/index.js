@@ -19,9 +19,12 @@ const INIT_TODO = [
   { id: 5, task: 'Coding' },
 ];
 function TodoList() {
+  // Schemas
+  // Todo : {id:number , task:string}
+  // TodoList : Array<Todo>
   const [todoList, setTodoList] = useState(INIT_TODO || []);
 
-  // DELETE TODO : Execute / Fire
+  // DELETE TODO => SetTodoList
   const handleDelete = (todoId) => {
     const foundedIndex = todoList.findIndex((todo) => todo.id === todoId);
     if (foundedIndex !== -1) {
@@ -31,26 +34,56 @@ function TodoList() {
     }
   };
 
+  // UPDATE TODO
+  const handleUpdate = (todoId, newTask) => {
+    const foundedIndex = todoList.findIndex((todo) => todo.id === todoId);
+    if (foundedIndex !== -1) {
+      const newTodoList = [...todoList];
+      let oldTodo = newTodoList[foundedIndex];
+      oldTodo.task = newTask;
+      setTodoList(newTodoList);
+    }
+  };
   return (
     <ul className='todo__list'>
       {todoList.map((todo) => (
         <TodoItem
           key={todo.id}
-          todoId={todo.id}
-          task={todo.task}
-          onDelete={handleDelete}
-          setTodoList={setTodoList}
+          todoId={todo.id} // 1, 2, 3, ...
+          task={todo.task} // "Do Hw", "Play football", "Sleep"
+          onDelete={handleDelete} // (todoId) => {.... // code }
+          onUpdate={handleUpdate}
         />
       ))}
     </ul>
   );
 }
 function TodoItem(props) {
+  // UI-State
+  const [isEdit, setIsEdit] = useState(false);
+
+  // Business-State
+  const [task, setTask] = useState(props?.task || '');
+
+  // Handler
+  const handleChangeInput = (event) => {
+    setTask(event.target.value);
+  };
+
+  const handleEdit = () => {
+    // EditMode : กด Save
+    if (isEdit) props.onUpdate(props.todoId, task);
+    setIsEdit((p) => !p);
+  };
+
+  const handleDelete = () => {
+    props.onDelete(props.todoId);
+  };
   return (
     <li className='todo__item'>
-      <p>{props?.task || ''}</p>
-      <button onClick={() => props.setTodoList([])}>reset</button>
-      <button onClick={() => props.onDelete(props.todoId)}>x</button>
+      {isEdit ? <input value={task} onChange={handleChangeInput} /> : <p>{props?.task || ''}</p>}
+      <button onClick={handleEdit}>{isEdit ? 'save' : 'edit'}</button>
+      <button onClick={handleDelete}>x</button>
     </li>
   );
 }

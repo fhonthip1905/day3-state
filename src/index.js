@@ -2,11 +2,28 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-function AddTodo() {
+function AddTodo(props) {
+  const { todoList, setTodoList } = props;
+
+  const [task, setTask] = useState('');
+
+  const handleChange = (event) => setTask(event.target.value);
+
+  const handleAdd = () => {
+    // submit
+    console.log('add todo');
+    // START --- Logic - Add
+    const newTodo = [...todoList];
+    newTodo.push({ id: newTodo.length + 1, task: task });
+    setTodoList(newTodo);
+    // END --- Logic - Add
+
+    setTask('');
+  };
   return (
     <header className='todo__add'>
-      <input />
-      <button>add</button>
+      <input value={task} onChange={handleChange} />
+      <button onClick={handleAdd}>add</button>
     </header>
   );
 }
@@ -18,11 +35,8 @@ const INIT_TODO = [
   { id: 4, task: 'Dinner' },
   { id: 5, task: 'Coding' },
 ];
-function TodoList() {
-  // Schemas
-  // Todo : {id:number , task:string}
-  // TodoList : Array<Todo>
-  const [todoList, setTodoList] = useState(INIT_TODO || []);
+function TodoList(props) {
+  const { todoList, setTodoList } = props;
 
   // DELETE TODO => SetTodoList
   const handleDelete = (todoId) => {
@@ -89,12 +103,13 @@ function TodoItem(props) {
 }
 
 function App() {
+  const [todoList, setTodoList] = useState(INIT_TODO || []);
   return (
     <div className='app'>
       <div className='todo'>
         <h1>TodoList</h1>
-        <AddTodo />
-        <TodoList />
+        <AddTodo todoList={todoList} setTodoList={setTodoList} />
+        <TodoList todoList={todoList} setTodoList={setTodoList} />
       </div>
     </div>
   );
